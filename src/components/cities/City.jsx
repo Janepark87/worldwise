@@ -4,6 +4,7 @@ import styles from './styles/City.module.css';
 import { formatDate } from '../../utils/formatDate';
 import { useCities } from '../../contexts/citiesContext';
 import Spinner from '../Spinner';
+import BackButton from '../BackButton';
 
 export default function City() {
 	const { id } = useParams();
@@ -41,6 +42,10 @@ export default function City() {
 				<a href={`https://en.wikipedia.org/wiki/${cityName}`} target="_blank" rel="noreferrer">
 					Check out {cityName} on Wikipedia &rarr;
 				</a>
+			</div>
+
+			<div>
+				<BackButton />
 			</div>
 		</div>
 	);
