@@ -5,10 +5,10 @@ import Product from './pages/Product';
 import Login from './pages/Login';
 import AppLayout from './pages/AppLayout';
 import PageNotFound from './pages/PageNotFound';
-import CityList from './components/CityList';
-import City from './components/City';
-import CountryList from './components/CountryList';
-import Form from './components/Form';
+import CityList from './components/cities/CityList';
+import City from './components/cities/City';
+import CountryList from './components/cities/CountryList';
+import Form from './components/cities/Form';
 import { CitiesProvider } from './contexts/citiesContext';
 
 export default function App() {

@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import AppNav from './AppNav';
-import Footer from './Footer';
-import Logo from './Logo';
-import styles from './styles/Sidebar.module.css';
+import AppFooter from './AppFooter';
+import Logo from '../Logo';
+import styles from './styles/AppSidebar.module.css';
 
-export default function Sidebar() {
+export default function AppSidebar() {
 	return (
 		<div className={styles.sidebar}>
 			<Logo />
@@ -12,7 +12,7 @@ export default function Sidebar() {
 
 			<Outlet />
 
-			<Footer />
+			<AppFooter />
 		</div>
 	);
 }

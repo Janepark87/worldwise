@@ -1,17 +1,18 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+const CITIES_BASE_URL = import.meta.env.VITE_APP_CITIES_API_URL;
 const CitiesContext = createContext();
 
 export function CitiesProvider({ children }) {
 	const [cities, setCities] = useState([]);
+	const [currentCity, setCurrentCity] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		const fetchCities = async () => {
 			try {
 				setIsLoading(true);
-				const citiesApiUrl = import.meta.env.VITE_APP_CITIES_API_URL;
-				const citiesEndpoint = import.meta.env.MODE === 'production' ? `${citiesApiUrl}/cities.json` : `${citiesApiUrl}/cities`;
+				const citiesEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities`;
 
 				const data = await (await fetch(citiesEndpoint)).json();
 				setCities(data);
@@ -25,7 +26,21 @@ export function CitiesProvider({ children }) {
 		fetchCities();
 	}, []);
 
-	return <CitiesContext.Provider value={{ cities, isLoading }}>{children}</CitiesContext.Provider>;
+	const getCity = async (id) => {
+		try {
+			setIsLoading(true);
+			const cityEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities/${id}`;
+			const data = await (await fetch(cityEndpoint)).json();
+			setCurrentCity(data);
+		} catch (err) {
+			console.log(err.message);
+			alert('There was an error loading data...', err.message);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	return <CitiesContext.Provider value={{ cities, currentCity, getCity, isLoading }}>{children}</CitiesContext.Provider>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

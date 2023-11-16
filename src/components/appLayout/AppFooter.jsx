@@ -1,6 +1,6 @@
-import styles from './styles/Footer.module.css';
+import styles from './styles/AppFooter.module.css';
 
-export default function Footer() {
+export default function AppFooter() {
 	return (
 		<footer className={styles.footer}>
 			<p className={styles.copyright}>&copy; Copyright {new Date().getFullYear()} </p>
