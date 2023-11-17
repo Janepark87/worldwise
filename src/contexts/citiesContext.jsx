@@ -40,7 +40,32 @@ export function CitiesProvider({ children }) {
 		}
 	};
 
-	return <CitiesContext.Provider value={{ cities, currentCity, getCity, isLoading }}>{children}</CitiesContext.Provider>;
+	const createCity = async (newCity) => {
+		// POST request To add a new city into cities.json file
+		try {
+			setIsLoading(true);
+			const cityEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities`;
+
+			const data = await (
+				await fetch(cityEndpoint, {
+					method: 'POST',
+					body: JSON.stringify(newCity),
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				})
+			).json();
+
+			setCities((cities) => [data, ...cities]);
+		} catch (err) {
+			console.log(err.message);
+			alert('There was an error loading data...', err.message);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	return <CitiesContext.Provider value={{ cities, currentCity, getCity, isLoading, createCity }}>{children}</CitiesContext.Provider>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

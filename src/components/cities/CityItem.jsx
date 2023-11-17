@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from './styles/CityItem.module.css';
 import { useCities } from '../../contexts/citiesContext';
+import { formatDate } from '../../utils/formatDate';
 
 export default function CityItem({ city }) {
 	const { currentCity } = useCities();
@@ -22,12 +23,4 @@ export default function CityItem({ city }) {
 			</Link>
 		</li>
 	);
-}
-
-function formatDate(date) {
-	return new Intl.DateTimeFormat('en', {
-		day: 'numeric',
-		month: 'long',
-		year: 'numeric',
-	}).format(new Date(date));
 }

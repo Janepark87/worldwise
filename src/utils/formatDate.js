@@ -1,8 +1,9 @@
-export function formatDate(date) {
-	return new Intl.DateTimeFormat('en', {
+export function formatDate(date, options = {}) {
+	const defaultOption = {
 		day: 'numeric',
 		month: 'long',
 		year: 'numeric',
-		weekday: 'long',
-	}).format(new Date(date));
+	};
+	const mergedOptions = { ...defaultOption, ...options };
+	return new Intl.DateTimeFormat('en', mergedOptions).format(new Date(date));
 }
