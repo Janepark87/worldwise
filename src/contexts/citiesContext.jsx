@@ -59,13 +59,29 @@ export function CitiesProvider({ children }) {
 			setCities((cities) => [data, ...cities]);
 		} catch (err) {
 			console.log(err.message);
-			alert('There was an error loading data...', err.message);
+			alert('There was an error creating city.', err.message);
 		} finally {
 			setIsLoading(false);
 		}
 	};
 
-	return <CitiesContext.Provider value={{ cities, currentCity, getCity, isLoading, createCity }}>{children}</CitiesContext.Provider>;
+	const deleteCity = async (deletedId) => {
+		try {
+			setIsLoading(true);
+			const cityEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities/${deletedId}`;
+
+			await fetch(cityEndpoint, { method: 'DELETE' }); // Delete request to delete a new city into cities.json file
+
+			setCities((cities) => cities.filter((city) => city.id !== deletedId));
+		} catch (err) {
+			console.log(err.message);
+			alert('There was an error deleting city.', err.message);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	return <CitiesContext.Provider value={{ cities, currentCity, getCity, isLoading, createCity, deleteCity }}>{children}</CitiesContext.Provider>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
