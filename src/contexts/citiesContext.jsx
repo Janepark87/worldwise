@@ -1,51 +1,86 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { useReducer } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 
-const CITIES_BASE_URL = import.meta.env.VITE_APP_CITIES_API_URL;
 const CitiesContext = createContext();
+const CITIES_BASE_URL = import.meta.env.VITE_APP_CITIES_API_URL;
+const initialState = {
+	cities: [],
+	currentCity: {},
+	isLoading: false,
+	error: '',
+};
+const reducer = (state, action) => {
+	switch (action.type) {
+		case 'loading':
+			return { ...state, isLoading: true };
+		case 'cities/loaded':
+			return {
+				...state,
+				isLoading: false,
+				cities: action.payload,
+			};
+		case 'city/loaded':
+			return {
+				...state,
+				isLoading: false,
+				currentCity: action.payload,
+			};
+		case 'city/created':
+			return {
+				...state,
+				isLoading: false,
+				currentCity: action.payload,
+				cities: [action.payload, ...state.cities],
+			};
+		case 'city/deleted':
+			return {
+				...state,
+				isLoading: false,
+				currentCity: {},
+				cities: state.cities.filter((city) => city.id !== action.payload),
+			};
+		case 'rejected':
+			return { ...state, isLoading: false, error: action.payload };
+		default:
+			throw new Error(`Unknown action type ${action.type}`);
+	}
+};
 
 export function CitiesProvider({ children }) {
-	const [cities, setCities] = useState([]);
-	const [currentCity, setCurrentCity] = useState({});
-	const [isLoading, setIsLoading] = useState(false);
+	const [{ cities, currentCity, isLoading, error }, dispatch] = useReducer(reducer, initialState);
 
 	useEffect(() => {
 		const fetchCities = async () => {
-			try {
-				setIsLoading(true);
-				const citiesEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities`;
+			dispatch({ type: 'loading' });
 
+			try {
+				const citiesEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities`;
 				const data = await (await fetch(citiesEndpoint)).json();
-				setCities(data);
-			} catch (err) {
-				console.log(err.message);
-				alert('There was an error loading data...', err.message);
-			} finally {
-				setIsLoading(false);
+				dispatch({ type: 'cities/loaded', payload: data });
+			} catch {
+				dispatch({ type: 'rejected', payload: 'There was an error loading data...' });
 			}
 		};
 		fetchCities();
 	}, []);
 
 	const getCity = async (id) => {
+		if (Number(id) === currentCity.id) return;
+
+		dispatch({ type: 'loading' });
 		try {
-			setIsLoading(true);
 			const cityEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities/${id}`;
 			const data = await (await fetch(cityEndpoint)).json();
-			setCurrentCity(data);
-		} catch (err) {
-			console.log(err.message);
-			alert('There was an error loading data...', err.message);
-		} finally {
-			setIsLoading(false);
+			dispatch({ type: 'city/loaded', payload: data });
+		} catch {
+			dispatch({ type: 'rejected', payload: 'There was an error loading data...' });
 		}
 	};
 
 	const createCity = async (newCity) => {
-		// POST request To add a new city into cities.json file
+		dispatch({ type: 'loading' });
 		try {
-			setIsLoading(true);
 			const cityEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities`;
-
 			const data = await (
 				await fetch(cityEndpoint, {
 					method: 'POST',
@@ -56,32 +91,24 @@ export function CitiesProvider({ children }) {
 				})
 			).json();
 
-			setCities((cities) => [data, ...cities]);
-		} catch (err) {
-			console.log(err.message);
-			alert('There was an error creating city.', err.message);
-		} finally {
-			setIsLoading(false);
+			dispatch({ type: 'city/created', payload: data });
+		} catch {
+			dispatch({ type: 'rejected', payload: 'There was an error creating city.' });
 		}
 	};
 
 	const deleteCity = async (deletedId) => {
+		dispatch({ type: 'loading' });
 		try {
-			setIsLoading(true);
 			const cityEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities/${deletedId}`;
-
-			await fetch(cityEndpoint, { method: 'DELETE' }); // Delete request to delete a new city into cities.json file
-
-			setCities((cities) => cities.filter((city) => city.id !== deletedId));
-		} catch (err) {
-			console.log(err.message);
-			alert('There was an error deleting city.', err.message);
-		} finally {
-			setIsLoading(false);
+			await fetch(cityEndpoint, { method: 'DELETE' });
+			dispatch({ type: 'city/deleted', payload: deletedId });
+		} catch {
+			dispatch({ type: 'rejected', payload: 'There was an error deleting city.' });
 		}
 	};
 
-	return <CitiesContext.Provider value={{ cities, currentCity, getCity, isLoading, createCity, deleteCity }}>{children}</CitiesContext.Provider>;
+	return <CitiesContext.Provider value={{ cities, currentCity, isLoading, error, getCity, createCity, deleteCity }}>{children}</CitiesContext.Provider>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
