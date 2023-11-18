@@ -1,7 +1,15 @@
 .message {
-  text-align: center;
-  font-size: 1.8rem;
-  width: 80%;
-  margin: 2rem auto;
-  font-weight: 600;
+	text-align: center;
+	font-size: 1.8rem;
+	width: 80%;
+	margin: 2rem auto;
+	font-weight: 600;
+}
+
+.login-error {
+	width: 100%;
+	margin: -1rem auto;
+	font-size: 1.5rem;
+	font-weight: normal;
+	color: var(--color-error);
 }

@@ -1,11 +1,9 @@
 import styles from './styles/Message.module.css';
 
-function Message({ message }) {
+export default function Message({ message, emoji = true, className = '' }) {
 	return (
-		<p className={styles.message}>
-			<span role="img">👋</span> {message}
+		<p className={`${styles.message} ${className ? styles[className] : ''}`}>
+			{emoji && <span role="img">👋</span>} {message}
 		</p>
 	);
 }
-
-export default Message;

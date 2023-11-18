@@ -6,6 +6,7 @@
 :root {
 	--color-brand--1: #ffb545;
 	--color-brand--2: #00c46a;
+	--color-error: #f44336;
 
 	--color-dark--0: #242a2e;
 	--color-dark--1: #2d3439;
@@ -66,4 +67,17 @@ input:focus {
 	font-weight: 600;
 	padding: 1rem 3rem;
 	border-radius: 5px;
+}
+
+/* Utilities */
+.mx-auto {
+	margin: 0 auto;
+}
+
+.ml-auto {
+	margin-left: auto;
+}
+
+.mr-auto {
+	margin-right: auto;
 }
