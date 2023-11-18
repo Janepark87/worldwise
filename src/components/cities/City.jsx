@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './styles/City.module.css';
 import { formatDate } from '../../utils/formatDate';
-import { useCities } from '../../contexts/citiesContext';
+import { useCities } from '../../contexts/CitiesContext';
 import Spinner from '../Spinner';
 import BackButton from '../BackButton';
 

@@ -1,100 +1,40 @@
 {
-  "cities": [
-    {
-      "cityName": "Lisbon",
-      "country": "Portugal",
-      "emoji": "🇵🇹",
-      "date": "2027-10-31T15:59:59.138Z",
-      "notes": "My favorite city so far!",
-      "position": {
-        "lat": 38.727881642324164,
-        "lng": -9.140900099907554
-      },
-      "id": 73930385
-    },
-    {
-      "cityName": "Madrid",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2027-07-15T08:22:53.976Z",
-      "notes": "",
-      "position": {
-        "lat": 40.46635901755316,
-        "lng": -3.7133789062500004
-      },
-      "id": 17806751
-    },
-    {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": 98443197
-    },
-    {
-      "cityName": "Grun Bordas",
-      "country": "France",
-      "emoji": "🇫🇷",
-      "date": "2023-11-17T18:58:11.409Z",
-      "position": {
-        "lat": "45.058001435398296",
-        "lng": "0.6152343750000001"
-      },
-      "notes": "test",
-      "id": 98443198
-    },
-    {
-      "cityName": "Cornago",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2023-11-17T19:17:59.623Z",
-      "position": {
-        "lat": "42.04929263868686",
-        "lng": "-2.0434570312500004"
-      },
-      "notes": "dfdfdf",
-      "id": 98443199
-    },
-    {
-      "cityName": "Fueva, La",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2023-11-17T19:18:19.817Z",
-      "position": {
-        "lat": "42.439674178149446",
-        "lng": "0.26367187500000006"
-      },
-      "notes": "dddd",
-      "id": 98443200
-    },
-    {
-      "cityName": "Orange",
-      "country": "France",
-      "emoji": "🇫🇷",
-      "date": "2023-11-17T19:18:29.997Z",
-      "position": {
-        "lat": "44.166444664458595",
-        "lng": "4.833984375000001"
-      },
-      "notes": "dfdfdfd",
-      "id": 98443201
-    },
-    {
-      "cityName": "Hommes",
-      "country": "France",
-      "emoji": "🇫🇷",
-      "date": "2023-11-17T19:19:15.966Z",
-      "position": {
-        "lat": "47.44294999517949",
-        "lng": "0.30761718750000006"
-      },
-      "notes": "dfdfdfd",
-      "id": 98443202
-    }
-  ]
+	"cities": [
+		{
+			"cityName": "Lisbon",
+			"country": "Portugal",
+			"emoji": "🇵🇹",
+			"date": "2027-10-31T15:59:59.138Z",
+			"notes": "My favorite city so far!",
+			"position": {
+				"lat": 38.727881642324164,
+				"lng": -9.140900099907554
+			},
+			"id": 73930385
+		},
+		{
+			"cityName": "Madrid",
+			"country": "Spain",
+			"emoji": "🇪🇸",
+			"date": "2027-07-15T08:22:53.976Z",
+			"notes": "",
+			"position": {
+				"lat": 40.46635901755316,
+				"lng": -3.7133789062500004
+			},
+			"id": 17806751
+		},
+		{
+			"cityName": "Berlin",
+			"country": "Germany",
+			"emoji": "🇩🇪",
+			"date": "2027-02-12T09:24:11.863Z",
+			"notes": "Amazing 😃",
+			"position": {
+				"lat": 52.53586782505711,
+				"lng": 13.376933665713324
+			},
+			"id": 98443197
+		}
+	]
 }

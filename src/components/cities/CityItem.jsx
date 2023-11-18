@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './styles/CityItem.module.css';
-import { useCities } from '../../contexts/citiesContext';
+import { useCities } from '../../contexts/CitiesContext';
 import { formatDate } from '../../utils/formatDate';
 
 export default function CityItem({ city }) {
