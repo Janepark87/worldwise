@@ -54,8 +54,6 @@ export function AuthProvider({ children }) {
 		dispatch({ type: 'logout' });
 	};
 
-	console.log(user);
-
 	return <AuthContext.Provider value={{ user, isAuthenticated, error, login, logout }}>{children}</AuthContext.Provider>;
 }
 
