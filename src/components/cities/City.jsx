@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './styles/City.module.css';
 import { formatDate } from '../../utils/formatDate';
-import { useCities } from '../../contexts/CitiesContext';
 import Spinner from '../Spinner';
 import BackButton from '../BackButton';
+import { useCities } from '../../contexts/CitiesContext';
 
 export default function City() {
 	const { id } = useParams();
@@ -13,7 +13,7 @@ export default function City() {
 
 	useEffect(() => {
 		getCity(id);
-	}, [id]);
+	}, [id, getCity]);
 
 	if (isLoading) return <Spinner />;
 	return (

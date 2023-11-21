@@ -1,5 +1,4 @@
-import { useReducer } from 'react';
-import { createContext, useContext, useEffect } from 'react';
+import { createContext, useContext, useEffect, useReducer, useCallback } from 'react';
 
 const CitiesContext = createContext();
 const CITIES_BASE_URL = import.meta.env.VITE_APP_CITIES_API_URL;
@@ -64,18 +63,22 @@ export function CitiesProvider({ children }) {
 		fetchCities();
 	}, []);
 
-	const getCity = async (id) => {
-		if (Number(id) === currentCity.id) return;
+	const getCity = useCallback(
+		() => async (id) => {
+			if (Number(id) === currentCity.id) return;
 
-		dispatch({ type: 'loading' });
-		try {
-			const cityEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities/${id}`;
-			const data = await (await fetch(cityEndpoint)).json();
-			dispatch({ type: 'city/loaded', payload: data });
-		} catch {
-			dispatch({ type: 'rejected', payload: 'There was an error loading data...' });
-		}
-	};
+			dispatch({ type: 'loading' });
+			try {
+				const cityEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities/${id}`;
+				const data = await (await fetch(cityEndpoint)).json();
+				dispatch({ type: 'city/loaded', payload: data });
+				console.log('getCity');
+			} catch {
+				dispatch({ type: 'rejected', payload: 'There was an error loading data...' });
+			}
+		},
+		[currentCity.id]
+	);
 
 	const createCity = async (newCity) => {
 		dispatch({ type: 'loading' });

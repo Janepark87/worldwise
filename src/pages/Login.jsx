@@ -11,7 +11,7 @@ export default function Login() {
 	const navigate = useNavigate();
 	const { isAuthenticated, login, error } = useAuth();
 	const [email, setEmail] = useState(USER.email);
-	const [password, setPassword] = useState(USER.password);
+	const [password, setPassword] = useState('');
 
 	const handleLoginSubmit = (e) => {
 		e.preventDefault();
@@ -33,7 +33,14 @@ export default function Login() {
 
 				<div className={styles.row}>
 					<label htmlFor="password">Password</label>
-					<input type="password" id="password" onChange={(e) => setPassword(e.target.value)} value={password} required />
+					<input
+						type="password"
+						id="password"
+						placeholder="Enter the password given to you..."
+						onChange={(e) => setPassword(e.target.value)}
+						value={password}
+						required
+					/>
 				</div>
 
 				{error && <Message message={error} emoji={false} className="login-error" />}
