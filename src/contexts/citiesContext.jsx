@@ -64,7 +64,7 @@ export function CitiesProvider({ children }) {
 	}, []);
 
 	const getCity = useCallback(
-		() => async (id) => {
+		async (id) => {
 			if (Number(id) === currentCity.id) return;
 
 			dispatch({ type: 'loading' });
@@ -72,7 +72,6 @@ export function CitiesProvider({ children }) {
 				const cityEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities/${id}`;
 				const data = await (await fetch(cityEndpoint)).json();
 				dispatch({ type: 'city/loaded', payload: data });
-				console.log('getCity');
 			} catch {
 				dispatch({ type: 'rejected', payload: 'There was an error loading data...' });
 			}
