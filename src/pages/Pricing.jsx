@@ -1,12 +1,12 @@
 // Uses the same styles as Product
-import PageNav from '../components/PageNav';
+import Main from '../layouts/Main';
+import Section from '../layouts/Section';
 import styles from './styles/Product.module.css';
 
 export default function Pricing() {
 	return (
-		<main className={styles.product}>
-			<PageNav />
-			<section>
+		<Main className={styles.product}>
+			<Section>
 				<div>
 					<h2>
 						Simple pricing.
@@ -19,7 +19,7 @@ export default function Pricing() {
 					</p>
 				</div>
 				<img src="img-2.jpg" alt="overview of a large city with skyscrapers" />
-			</section>
-		</main>
+			</Section>
+		</Main>
 	);
 }

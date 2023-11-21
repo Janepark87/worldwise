@@ -1,11 +1,11 @@
-import PageNav from '../components/PageNav';
+import Main from '../layouts/Main';
+import Section from '../layouts/Section';
 import styles from './styles/Product.module.css';
 
 export default function Product() {
 	return (
-		<main className={styles.product}>
-			<PageNav />
-			<section>
+		<Main className={styles.product}>
+			<Section>
 				<img src="img-1.jpg" alt="person with dog overlooking mountain with sunset" />
 				<div>
 					<h2>About WorldWide.</h2>
@@ -18,7 +18,7 @@ export default function Product() {
 						sequi officiis et.
 					</p>
 				</div>
-			</section>
-		</main>
+			</Section>
+		</Main>
 	);
 }

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './styles/City.module.css';
-import { formatDate } from '../../utils/formatDate';
-import Spinner from '../Spinner';
-import BackButton from '../BackButton';
 import { useCities } from '../../contexts/CitiesContext';
+import { formatDate } from '../../utils/formatDate';
+import BackButton from '../BackButton';
+import Spinner from '../Spinner';
 
 export default function City() {
 	const { id } = useParams();

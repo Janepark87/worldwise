@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import styles from './styles/Form.module.css';
+import { useNavigate } from 'react-router-dom';
+import styles from './styles/AppForm.module.css';
 import Button from '../Button';
 import BackButton from '../BackButton';
 import Spinner from '../Spinner';
 import Message from '../Message';
 import useUrlPosition from '../../hooks/useUrlPosition';
+import { useCities } from '../../contexts/CitiesContext';
 import { convertToEmoji } from '../../utils/convertToEmoji';
+import { fromatString } from '../../utils/formatString';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { fromatString } from '../../utils/formatString';
-import { useCities } from '../../contexts/CitiesContext';
-import { useNavigate } from 'react-router-dom';
 
 const GEO_CORDING_BASE_URL = import.meta.env.VITE_APP_GEO_CORDING_API_URL;
 

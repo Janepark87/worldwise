@@ -4,8 +4,8 @@ import styles from './styles/AppMap.module.css';
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
 import { useCities } from '../../contexts/CitiesContext';
 import useGeolocation from '../../hooks/useGeolocation';
-import Button from '../Button';
 import useUrlPosition from '../../hooks/useUrlPosition';
+import Button from '../Button';
 
 export default function Map() {
 	const { cities } = useCities();

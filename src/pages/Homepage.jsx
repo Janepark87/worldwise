@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import PageNav from '../components/PageNav';
 import styles from './styles/Homepage.module.css';
+import Main from '../layouts/Main';
+import Section from '../layouts/Section';
 
 export default function Homepage() {
 	return (
-		<main className={styles.homepage}>
-			<PageNav />
-			<section>
+		<Main className={styles.homepage}>
+			<Section>
 				<h1>
 					You travel the world.
 					<br />
@@ -20,7 +20,7 @@ export default function Homepage() {
 				<Link to="/login" className="cta">
 					Start tracking now
 				</Link>
-			</section>
-		</main>
+			</Section>
+		</Main>
 	);
 }
