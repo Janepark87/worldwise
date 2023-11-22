@@ -10,7 +10,7 @@
 		"preview": "vite preview",
 		"server": "json-server --watch data/cities.json --port 8000 --dalay 500",
 		"deploy": "gh-pages -d build",
-		"predeploy": "npm run build"
+		"predeploy": "vite build"
 	},
 	"dependencies": {
 		"gh-pages": "^6.1.0",
