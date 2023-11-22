@@ -1,13 +1,12 @@
-import { useReducer } from 'react';
-import { useContext } from 'react';
-import { createContext } from 'react';
+import { createContext, useContext, useReducer, useEffect } from 'react';
 import { USER } from '../utils/user';
 
 const AuthContext = createContext();
+const isAuth = JSON.parse(localStorage.getItem('isAuthenticated'));
 
 const initialState = {
-	user: null,
-	isAuthenticated: false,
+	user: isAuth ? USER : null,
+	isAuthenticated: isAuth ?? false,
 	error: '',
 };
 
@@ -20,7 +19,11 @@ const reducer = (state, action) => {
 				user: action.payload,
 			};
 		case 'logout':
-			return initialState;
+			return {
+				...state,
+				user: null,
+				isAuthenticated: false,
+			};
 		case 'rejected':
 			return {
 				...state,
@@ -33,6 +36,10 @@ const reducer = (state, action) => {
 
 export function AuthProvider({ children }) {
 	const [{ user, isAuthenticated, error }, dispatch] = useReducer(reducer, initialState);
+
+	useEffect(() => {
+		localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated));
+	}, [isAuthenticated]);
 
 	const login = (email, password) => {
 		const isEmail = email === USER.email;
@@ -50,9 +57,7 @@ export function AuthProvider({ children }) {
 		}
 	};
 
-	const logout = () => {
-		dispatch({ type: 'logout' });
-	};
+	const logout = () => dispatch({ type: 'logout' });
 
 	return <AuthContext.Provider value={{ user, isAuthenticated, error, login, logout }}>{children}</AuthContext.Provider>;
 }

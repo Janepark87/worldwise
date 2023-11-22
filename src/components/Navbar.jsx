@@ -1,11 +1,17 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './styles/PageNav.module.css';
 import { useAuth } from '../contexts/FakeAuthContext';
 import Logo from './Logo';
 import Button from './Button';
 
 export default function PageNav() {
+	const navigate = useNavigate();
 	const { logout, isAuthenticated } = useAuth();
+
+	function handleClick() {
+		logout();
+		navigate('/');
+	}
 
 	return (
 		<nav className={styles.nav}>
@@ -24,7 +30,7 @@ export default function PageNav() {
 							Login
 						</NavLink>
 					) : (
-						<Button type="primary" className={styles.catLink} onClick={logout}>
+						<Button type="primary" className={styles.catLink} onClick={handleClick}>
 							Log out
 						</Button>
 					)}
