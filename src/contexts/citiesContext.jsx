@@ -16,7 +16,7 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				isLoading: false,
-				cities: action.payload,
+				cities: import.meta.env.DEV ? action.payload : action.payload.cities,
 			};
 		case 'city/loaded':
 			return {
@@ -53,8 +53,8 @@ export function CitiesProvider({ children }) {
 			dispatch({ type: 'loading' });
 
 			try {
-				const citiesEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities`;
-				const data = await (await fetch(citiesEndpoint)).json();
+				const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities` : `${CITIES_BASE_URL}/cities.json`;
+				const data = await (await fetch(cityEndpoint)).json();
 				dispatch({ type: 'cities/loaded', payload: data });
 			} catch {
 				dispatch({ type: 'rejected', payload: 'There was an error loading data...' });
@@ -69,7 +69,7 @@ export function CitiesProvider({ children }) {
 
 			dispatch({ type: 'loading' });
 			try {
-				const cityEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities/${id}`;
+				const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities${id}` : `${CITIES_BASE_URL}/cities.json`;
 				const data = await (await fetch(cityEndpoint)).json();
 				dispatch({ type: 'city/loaded', payload: data });
 			} catch {
@@ -82,7 +82,7 @@ export function CitiesProvider({ children }) {
 	const createCity = async (newCity) => {
 		dispatch({ type: 'loading' });
 		try {
-			const cityEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities`;
+			const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities` : `${CITIES_BASE_URL}/cities.json`;
 			const data = await (
 				await fetch(cityEndpoint, {
 					method: 'POST',
@@ -102,7 +102,7 @@ export function CitiesProvider({ children }) {
 	const deleteCity = async (deletedId) => {
 		dispatch({ type: 'loading' });
 		try {
-			const cityEndpoint = import.meta.env.MODE === 'production' ? `${CITIES_BASE_URL}/cities.json` : `${CITIES_BASE_URL}/cities/${deletedId}`;
+			const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities/${deletedId}` : `${CITIES_BASE_URL}/cities.json`;
 			await fetch(cityEndpoint, { method: 'DELETE' });
 			dispatch({ type: 'city/deleted', payload: deletedId });
 		} catch {
