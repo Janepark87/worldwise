@@ -47,13 +47,17 @@ export function AuthProvider({ children }) {
 
 		if (isEmail && isPassword) dispatch({ type: 'login', payload: USER });
 		else {
-			const errorMessage =
-				isEmail && isPassword //
+			let errorMessage =
+				!isEmail && !isPassword //
 					? 'Invalid email and password.'
-					: isEmail
+					: !isEmail
 					? 'Invalid email.'
 					: 'Invalid password.';
 			dispatch({ type: 'rejected', payload: errorMessage });
+
+			setTimeout(() => {
+				dispatch({ type: 'rejected', payload: '' });
+			}, 3000);
 		}
 	};
 

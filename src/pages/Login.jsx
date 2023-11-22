@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles/Login.module.css';
 import Main from '../layouts/Main';
@@ -10,6 +10,7 @@ import { USER } from '../utils/user';
 
 export default function Login() {
 	const navigate = useNavigate();
+	const inputPW = useRef();
 	const { isAuthenticated, login, error } = useAuth();
 	const [email, setEmail] = useState(USER.email);
 	const [password, setPassword] = useState('');
@@ -17,11 +18,17 @@ export default function Login() {
 	const handleLoginSubmit = (e) => {
 		e.preventDefault();
 		if (email && password) login(email, password);
+		setPassword('');
+		inputPW.current.focus();
 	};
 
 	useEffect(() => {
 		if (isAuthenticated) navigate('/app', { replace: true });
 	}, [navigate, isAuthenticated]);
+
+	useEffect(() => {
+		inputPW.current.focus();
+	}, []);
 
 	return (
 		<Main className={styles.login}>
@@ -29,7 +36,7 @@ export default function Login() {
 				<form onSubmit={handleLoginSubmit} className={styles.form}>
 					<div className={styles.row}>
 						<label htmlFor="email">Email address</label>
-						<input type="email" id="email" onChange={(e) => setEmail(e.target.value)} value={email} required />
+						<input type="email" id="email" onChange={(e) => setEmail(e.target.value)} value={email} disabled required />
 					</div>
 
 					<div className={styles.row}>
@@ -38,6 +45,7 @@ export default function Login() {
 							type="password"
 							id="password"
 							placeholder="Enter the password given to you..."
+							ref={inputPW}
 							onChange={(e) => setPassword(e.target.value)}
 							value={password}
 							required
