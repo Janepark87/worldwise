@@ -69,7 +69,7 @@ export function CitiesProvider({ children }) {
 
 			dispatch({ type: 'loading' });
 			try {
-				const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities${id}` : `${CITIES_BASE_URL}/cities.json`;
+				const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities/${id}` : `${CITIES_BASE_URL}/cities.json`;
 				const data = await (await fetch(cityEndpoint)).json();
 				dispatch({ type: 'city/loaded', payload: data });
 			} catch {
