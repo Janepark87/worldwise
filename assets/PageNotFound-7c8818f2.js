@@ -1,0 +1,1 @@
+import{j as o}from"./index-b2e23129.js";import{M as n,S as r}from"./Section-6222b017.js";import"./Logo-d582b2fc.js";function s(){return o.jsx(n,{children:o.jsx(r,{children:o.jsx("h1",{children:"Page not found 😢"})})})}export{s as default};
