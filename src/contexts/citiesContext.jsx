@@ -53,8 +53,7 @@ export function CitiesProvider({ children }) {
 			dispatch({ type: 'loading' });
 
 			try {
-				const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities` : `${CITIES_BASE_URL}/cities.json`;
-				const data = await (await fetch(cityEndpoint)).json();
+				const data = await (await fetch(`${CITIES_BASE_URL}/cities`)).json();
 				console.log('cities data: ', data);
 				dispatch({ type: 'cities/loaded', payload: data });
 			} catch {
@@ -70,8 +69,7 @@ export function CitiesProvider({ children }) {
 
 			dispatch({ type: 'loading' });
 			try {
-				const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities/${id}` : `${CITIES_BASE_URL}/cities.json/cities/${id}`;
-				const data = await (await fetch(cityEndpoint)).json();
+				const data = await (await fetch(`${CITIES_BASE_URL}/cities/${id}`)).json();
 				dispatch({ type: 'city/loaded', payload: data });
 			} catch {
 				dispatch({ type: 'rejected', payload: 'There was an error loading data...' });
@@ -83,9 +81,8 @@ export function CitiesProvider({ children }) {
 	const createCity = async (newCity) => {
 		dispatch({ type: 'loading' });
 		try {
-			const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities` : `${CITIES_BASE_URL}/cities.json/cities`;
 			const data = await (
-				await fetch(cityEndpoint, {
+				await fetch(`${CITIES_BASE_URL}/cities`, {
 					method: 'POST',
 					body: JSON.stringify(newCity),
 					headers: {
