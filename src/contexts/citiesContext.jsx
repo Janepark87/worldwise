@@ -55,6 +55,7 @@ export function CitiesProvider({ children }) {
 			try {
 				const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities` : `${CITIES_BASE_URL}/cities.json`;
 				const data = await (await fetch(cityEndpoint)).json();
+				console.log('cities data: ', data);
 				dispatch({ type: 'cities/loaded', payload: data });
 			} catch {
 				dispatch({ type: 'rejected', payload: 'There was an error loading data...' });

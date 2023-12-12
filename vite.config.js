@@ -13,6 +13,7 @@ export default defineConfig(({ command, mode }) => {
 				'/api': {
 					target: env.VITE_APP_CITIES_API_URL,
 					changeOrigin: true,
+					rewrite: (path) => path.replace(/^\/api/, ''),
 				},
 			},
 		},
