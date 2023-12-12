@@ -8,15 +8,6 @@ export default defineConfig(({ command, mode }) => {
 	const config = {
 		base: command === 'serve' ? '/' : '/worldwise/',
 		plugins: [react()],
-		server: {
-			proxy: {
-				'/api': {
-					target: env.VITE_APP_CITIES_API_URL,
-					changeOrigin: true,
-					rewrite: (path) => path.replace(/^\/api/, ''),
-				},
-			},
-		},
 	};
 
 	return config;
