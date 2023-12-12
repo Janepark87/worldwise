@@ -9,5 +9,6 @@ module.exports = {
 	rules: {
 		'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
 		'react/prop-types': 'off',
+		'css.lint.unknownAtRules': 'ignore',
 	},
 };

@@ -21,7 +21,7 @@ export default function App() {
 	return (
 		<AuthProvider>
 			<CitiesProvider>
-				<BrowserRouter>
+				<BrowserRouter basename={import.meta.env.DEV ? '/' : '/worldwise/'}>
 					<Suspense fallback={<SpinnerFullPage />}>
 						<Routes>
 							<Route index element={<Homepage />} />

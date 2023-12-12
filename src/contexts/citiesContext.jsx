@@ -69,7 +69,7 @@ export function CitiesProvider({ children }) {
 
 			dispatch({ type: 'loading' });
 			try {
-				const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities/${id}` : `${CITIES_BASE_URL}/cities.json`;
+				const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities/${id}` : `${CITIES_BASE_URL}/cities.json/cities/${id}`;
 				const data = await (await fetch(cityEndpoint)).json();
 				dispatch({ type: 'city/loaded', payload: data });
 			} catch {
@@ -82,7 +82,7 @@ export function CitiesProvider({ children }) {
 	const createCity = async (newCity) => {
 		dispatch({ type: 'loading' });
 		try {
-			const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities` : `${CITIES_BASE_URL}/cities.json`;
+			const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities` : `${CITIES_BASE_URL}/cities.json/cities`;
 			const data = await (
 				await fetch(cityEndpoint, {
 					method: 'POST',
@@ -102,7 +102,7 @@ export function CitiesProvider({ children }) {
 	const deleteCity = async (deletedId) => {
 		dispatch({ type: 'loading' });
 		try {
-			const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities/${deletedId}` : `${CITIES_BASE_URL}/cities.json`;
+			const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities` : `${CITIES_BASE_URL}/cities.json/cities`;
 			await fetch(cityEndpoint, { method: 'DELETE' });
 			dispatch({ type: 'city/deleted', payload: deletedId });
 		} catch {
