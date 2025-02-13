@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, useReducer, useCallback } from 'react';
 
 const CitiesContext = createContext();
-const CITIES_BASE_URL = import.meta.env.VITE_APP_CITIES_API_URL;
+
+const CITIES_BASE_URL = import.meta.env.DEV ? import.meta.env.VITE_APP_CITIES_API_URL : `${import.meta.env.VITE_APP_CITIES_API_URL}/cities.json`;
+
 const initialState = {
 	cities: [],
 	currentCity: {},
