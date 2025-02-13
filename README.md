@@ -5,6 +5,8 @@ WorldWise is a travel tracking web application designed for explorers who want t
 With an interactive world map, users can visualize their travel history, add new destinations, and relive their experiences.  
 Whether you’re a casual traveler or a globetrotter, WorldWise helps you remember every city you've visited and share your journey with others.  
 
+Explore the [WorldWise Demo](https://janepark87.github.io/worldwise/) to experience the app in action.  
+
 ## Features  
 - **Interactive World Map**: Track your footsteps across the globe by marking cities you've visited.  
 - **Create & Manage Destinations**: Easily add new travel locations directly on the map.  
