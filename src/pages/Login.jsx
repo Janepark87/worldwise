@@ -13,7 +13,7 @@ export default function Login() {
 	const inputPW = useRef();
 	const { isAuthenticated, login, error } = useAuth();
 	const [email, setEmail] = useState(USER.email);
-	const [password, setPassword] = useState('');
+	const [password, setPassword] = useState(USER.password);
 
 	const handleLoginSubmit = (e) => {
 		e.preventDefault();

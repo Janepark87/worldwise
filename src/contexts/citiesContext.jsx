@@ -2,7 +2,9 @@ import { createContext, useContext, useEffect, useReducer, useCallback } from 'r
 
 const CitiesContext = createContext();
 
-const CITIES_BASE_URL = import.meta.env.DEV ? import.meta.env.VITE_APP_CITIES_API_URL : `${import.meta.env.VITE_APP_CITIES_API_URL}/cities.json`;
+const CITIES_BASE_URL = import.meta.env.DEV
+	? `${import.meta.env.VITE_APP_CITIES_API_URL}/cities`
+	: `https://api.allorigins.win/raw?url=${encodeURIComponent(import.meta.env.VITE_APP_CITIES_API_URL + '/cities.json')}`;
 
 const initialState = {
 	cities: [],
@@ -24,7 +26,7 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				isLoading: false,
-				currentCity: action.payload,
+				currentCity: import.meta.env.DEV ? action.payload : action.payload.cities,
 			};
 		case 'city/created':
 			return {
@@ -36,9 +38,9 @@ const reducer = (state, action) => {
 		case 'city/deleted':
 			return {
 				...state,
-				isLoading: false,
-				currentCity: {},
 				cities: state.cities.filter((city) => city.id !== action.payload),
+				currentCity: state.currentCity.id === action.payload ? {} : state.currentCity,
+				isLoading: false,
 			};
 		case 'rejected':
 			return { ...state, isLoading: false, error: action.payload };
@@ -55,7 +57,7 @@ export function CitiesProvider({ children }) {
 			dispatch({ type: 'loading' });
 
 			try {
-				const data = await (await fetch(`${CITIES_BASE_URL}/cities`)).json();
+				const data = await (await fetch(`${CITIES_BASE_URL}`)).json();
 				dispatch({ type: 'cities/loaded', payload: data });
 			} catch {
 				dispatch({ type: 'rejected', payload: 'There was an error loading data...' });
@@ -70,7 +72,7 @@ export function CitiesProvider({ children }) {
 
 			dispatch({ type: 'loading' });
 			try {
-				const data = await (await fetch(`${CITIES_BASE_URL}/cities/${id}`)).json();
+				const data = await (await fetch(`${CITIES_BASE_URL}/${id}`)).json();
 				dispatch({ type: 'city/loaded', payload: data });
 			} catch {
 				dispatch({ type: 'rejected', payload: 'There was an error loading data...' });
@@ -83,7 +85,7 @@ export function CitiesProvider({ children }) {
 		dispatch({ type: 'loading' });
 		try {
 			const data = await (
-				await fetch(`${CITIES_BASE_URL}/cities`, {
+				await fetch(CITIES_BASE_URL, {
 					method: 'POST',
 					body: JSON.stringify(newCity),
 					headers: {
@@ -92,7 +94,7 @@ export function CitiesProvider({ children }) {
 				})
 			).json();
 
-			dispatch({ type: 'city/created', payload: data });
+			dispatch({ type: 'city/created', payload: import.meta.env.DEV ? data : data.cities });
 		} catch {
 			dispatch({ type: 'rejected', payload: 'There was an error creating city.' });
 		}
@@ -100,9 +102,9 @@ export function CitiesProvider({ children }) {
 
 	const deleteCity = async (deletedId) => {
 		dispatch({ type: 'loading' });
+
 		try {
-			const cityEndpoint = import.meta.env.DEV ? `${CITIES_BASE_URL}/cities` : `${CITIES_BASE_URL}/cities.json/cities`;
-			await fetch(cityEndpoint, { method: 'DELETE' });
+			await fetch(`${CITIES_BASE_URL}/${deletedId}`, { method: 'DELETE' });
 			dispatch({ type: 'city/deleted', payload: deletedId });
 		} catch {
 			dispatch({ type: 'rejected', payload: 'There was an error deleting city.' });
