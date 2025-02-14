@@ -19,6 +19,13 @@ Explore the [WorldWise Demo](https://janepark87.github.io/worldwise/) to experie
 - **Fake Authentication**: A simple login system using email and password for demonstration purposes—no real authentication is implemented.  
 - **Responsive Design**: Enjoy a seamless experience across all devices.  
 
+## Usage
+- Use Login with any email and password to access the app (Fake login).
+- After logging in, navigate to /app/cities to start marking your travel locations.
+- Click on the interactive map to add new destinations or manage your travel history.
+- View a list of visited cities on the left panel and explore the map on the right.
+- Update or delete locations as your journey continues.
+
 ## Tech Stack  
 - **Vite React**: Fast and modern React development environment.  
 - **React Router**: For seamless navigation between pages.  
