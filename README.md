@@ -6,6 +6,8 @@ With an interactive world map, users can visualize their travel history, add new
 Whether you’re a casual traveler or a globetrotter, WorldWise helps you remember every city you've visited and share your journey with others.  
 
 Explore the [WorldWise Demo](https://janepark87.github.io/worldwise/) to experience the app in action.  
+> **Note:** The demo version on GitHub Pages is a static build and does not support adding or deleting cities,  
+> as it does not connect to a real backend server. To use the full functionality, you must run the app locally.  
 
 ## Features  
 - **Interactive World Map**: Track your footsteps across the globe by marking cities you've visited.  
